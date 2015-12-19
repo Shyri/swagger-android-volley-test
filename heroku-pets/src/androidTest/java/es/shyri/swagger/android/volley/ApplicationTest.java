@@ -13,19 +13,24 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import java.util.List;
 import java.util.concurrent.TimeoutException;
 
 import io.swagger.client.api.ApiInvoker;
 import io.swagger.client.api.DefaultApi;
+import io.swagger.client.api.Responses;
 import io.swagger.client.model.Pet;
 
 import static android.support.test.InstrumentationRegistry.getInstrumentation;
+import static org.hamcrest.Matchers.greaterThan;
 
 /**
  * <a href="http://d.android.com/tools/testing/testing_android.html">Testing Fundamentals</a>
  */
 @RunWith(AndroidJUnit4.class)
 public class ApplicationTest extends ApplicationTestCase<Application> {
+    private final String FAKE_PET_ID = "560eea59a62de703006d2b58";
+    private final int PET_QUERY_LIMIT = 10;
     ApiInvoker apiInvoker;
     DefaultApi defaultApi;
 
@@ -41,13 +46,31 @@ public class ApplicationTest extends ApplicationTestCase<Application> {
     }
 
     @Test
-    public void postPet() throws TimeoutException {
-        Pet pet = new Pet();
-        pet.setName("My Pet");
-        pet.setBirthday(2);
-
+    public void getPets() throws TimeoutException {
         final Waiter waiter = new Waiter();
-        defaultApi.rootPost(pet, new Response.Listener<String>() {
+        defaultApi.rootGet(PET_QUERY_LIMIT, new Responses.PetListResponse() {
+            @Override
+            public void onResponse(List<Pet> petList) {
+                waiter.assertTrue(true);
+                waiter.assertThat(petList.size(), greaterThan(0));
+                waiter.resume();
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                error.printStackTrace();
+                waiter.assertTrue(false);
+                waiter.resume();
+            }
+        });
+        waiter.await();
+    }
+
+
+    @Test
+    public void postPet() throws TimeoutException {
+        final Waiter waiter = new Waiter();
+        defaultApi.rootPost(getFakePet(), new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 waiter.assertTrue(true);
@@ -62,5 +85,54 @@ public class ApplicationTest extends ApplicationTestCase<Application> {
             }
         });
         waiter.await();
+    }
+
+
+    @Test
+    public void putPet() throws TimeoutException {
+        final Waiter waiter = new Waiter();
+        defaultApi.rootPut(getFakePet(), new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                waiter.assertTrue(true);
+                waiter.resume();
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                error.printStackTrace();
+                waiter.assertTrue(false);
+                waiter.resume();
+            }
+        });
+        waiter.await();
+    }
+
+    @Test
+    public void getPetById() throws TimeoutException {
+        final Waiter waiter = new Waiter();
+        defaultApi.petIdGet(FAKE_PET_ID, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                waiter.assertTrue(true);
+                waiter.resume();
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                error.printStackTrace();
+                waiter.assertTrue(false);
+                waiter.resume();
+            }
+        });
+        waiter.await();
+    }
+
+    private Pet getFakePet() {
+        Pet pet = new Pet();
+        pet.setName("My Pet");
+        pet.setBirthday(2);
+
+        return pet;
     }
 }

@@ -5,7 +5,7 @@ allprojects {
 }
 
 ext {
-    androidBuildToolsVersion = "23.0.1"
+    androidBuildToolsVersion = "23.0.2"
     androidMinSdkVersion = 15
     androidTargetSdkVersion = 23
     androidCompileSdkVersion = 23
@@ -20,7 +20,7 @@ ext {
     volley_version = "1.0.19"
 
     jUnitVersion = '4.12'
-    hamcresttVersion = '1.1'
+    hamcresttVersion = '1.3'
     mockitoVersion = '1.9.5'
 
     testRunnerVersion = '0.4.1'
@@ -43,13 +43,13 @@ ext {
 
     testDependencies = [
             junit:              "junit:junit:${jUnitVersion}",
-            hamcrest:           "org.hamcrest:hamcrest-library:${hamcresttVersion}",
             mockito:            "org.mockito:mockito-core:${mockitoVersion}",
     ]
 
     androidTestDependencies = [
             runner:             "com.android.support.test:runner:${testRunnerVersion}",
             rules:              "com.android.support.test:rules:${testRulesVersion}",
-            concurrentunit:              "net.jodah:concurrentunit:${concurrentunitVersion}",
+            concurrentunit:     "net.jodah:concurrentunit:${concurrentunitVersion}",
+            hamcrest:           "org.hamcrest:hamcrest-library:${hamcresttVersion}"
     ]
 }

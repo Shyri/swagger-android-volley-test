@@ -66,4 +66,5 @@ dependencies {
     }
 
     androidTestCompile globalAndroidTestDependencies.concurrentunit
+    androidTestCompile globalAndroidTestDependencies.hamcrest
 }
