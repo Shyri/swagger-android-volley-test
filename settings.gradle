@@ -1,1 +1,1 @@
-include ':heroku-pets'
+include ':heroku-pets', ':minimal'
