@@ -9,7 +9,7 @@ android {
         minSdkVersion globalConfiguration.getAt("androidMinSdkVersion")
         targetSdkVersion globalConfiguration.getAt("androidTargetSdkVersion")
 
-        applicationId "es.shyri.swagger.android.volley.herokupets"
+        applicationId "es.shyri.swagger.android.volley.echo"
         versionCode globalConfiguration.getAt("androidVersionCode")
         versionName globalConfiguration.getAt("androidVersionName")
 

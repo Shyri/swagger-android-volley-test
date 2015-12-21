@@ -1,1 +1,1 @@
-include ':heroku-pets', ':minimal'
+include ':heroku-pets', ':echo'
