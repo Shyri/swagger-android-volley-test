@@ -1,1 +1,1 @@
-include ':heroku-pets', ':echo'
+include ':heroku-pets', ':echo', ':basic-auth'
