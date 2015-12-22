@@ -1,25 +1,19 @@
 package io.swagger.client.api;
 
-import io.swagger.client.Responses;
-import io.swagger.client.ApiInvoker;
-import io.swagger.client.ApiException;
-import io.swagger.client.Pair;
-
-import io.swagger.client.model.*;
-
-import java.util.*;
-
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-
-
 
 import org.apache.http.HttpEntity;
 import org.apache.http.entity.mime.MultipartEntityBuilder;
 
-import java.util.Map;
+import java.util.ArrayList;
 import java.util.HashMap;
-import java.io.File;
+import java.util.List;
+import java.util.Map;
+
+import io.swagger.client.ApiException;
+import io.swagger.client.ApiInvoker;
+import io.swagger.client.Pair;
 
 
 public class DefaultApi {
@@ -48,7 +42,7 @@ public class DefaultApi {
    * 
    * @return void
    */
-  public void rootGet ( final Response.Listener<String> responseListener, final Response.ErrorListener errorListener) {
+  public void rootGet (final Response.Listener<String> responseListener, final Response.ErrorListener errorListener) {
     Object postBody = null;
 
   
@@ -115,7 +109,7 @@ public class DefaultApi {
    * @param year year
    * @return void
    */
-  public void rootPost (String name, ,String year, final Response.Listener<String> responseListener, final Response.ErrorListener errorListener) {
+  public void rootPost (String name, String year, final Response.Listener<String> responseListener, final Response.ErrorListener errorListener) {
     Object postBody = null;
 
   
