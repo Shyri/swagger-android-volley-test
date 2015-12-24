@@ -1,7 +1,9 @@
 package es.shyri.swagger.android.volley.petstore.simple;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+
+import io.swagger.client.R;
 
 public class MainActivity extends AppCompatActivity {
 
