@@ -1,27 +1,21 @@
 package io.swagger.client.api;
 
-import io.swagger.client.Responses;
-import io.swagger.client.ApiInvoker;
-import io.swagger.client.ApiException;
-import io.swagger.client.Pair;
-
-import io.swagger.client.model.*;
-
-import java.util.*;
-
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-
-import io.swagger.client.model.User;
-import java.util.*;
-
 
 import org.apache.http.HttpEntity;
 import org.apache.http.entity.mime.MultipartEntityBuilder;
 
-import java.util.Map;
+import java.util.ArrayList;
 import java.util.HashMap;
-import java.io.File;
+import java.util.List;
+import java.util.Map;
+
+import io.swagger.client.ApiException;
+import io.swagger.client.ApiInvoker;
+import io.swagger.client.Pair;
+import io.swagger.client.Responses;
+import io.swagger.client.model.User;
 
 
 public class UserApi {
@@ -51,7 +45,7 @@ public class UserApi {
    * @param body Created user object
    * @return void
    */
-  public void createUser (User body, final Response.Listener<String> responseListener, final Response.ErrorListener errorListener) {
+  public void createUser (User body, final Responses.StringResponse responseListener, final Response.ErrorListener errorListener) {
     Object postBody = body;
 
   
@@ -117,7 +111,7 @@ public class UserApi {
    * @param body List of user object
    * @return void
    */
-  public void createUsersWithArrayInput (List<User> body, final Response.Listener<String> responseListener, final Response.ErrorListener errorListener) {
+  public void createUsersWithArrayInput (List<User> body, final Responses.StringResponse responseListener, final Response.ErrorListener errorListener) {
     Object postBody = body;
 
   
@@ -183,7 +177,7 @@ public class UserApi {
    * @param body List of user object
    * @return void
    */
-  public void createUsersWithListInput (List<User> body, final Response.Listener<String> responseListener, final Response.ErrorListener errorListener) {
+  public void createUsersWithListInput (List<User> body, final Responses.StringResponse responseListener, final Response.ErrorListener errorListener) {
     Object postBody = body;
 
   
@@ -324,7 +318,7 @@ public class UserApi {
    * 
    * @return void
    */
-  public void logoutUser (final Response.Listener<String> responseListener, final Response.ErrorListener errorListener) {
+  public void logoutUser (final Responses.StringResponse responseListener, final Response.ErrorListener errorListener) {
     Object postBody = null;
 
   
@@ -468,7 +462,7 @@ public class UserApi {
    * @param body Updated user object
    * @return void
    */
-  public void updateUser (String username, User body, final Response.Listener<String> responseListener, final Response.ErrorListener errorListener) {
+  public void updateUser (String username, User body, final Responses.StringResponse responseListener, final Response.ErrorListener errorListener) {
     Object postBody = body;
 
   
@@ -540,7 +534,7 @@ public class UserApi {
    * @param username The name that needs to be deleted
    * @return void
    */
-  public void deleteUser (String username, final Response.Listener<String> responseListener, final Response.ErrorListener errorListener) {
+  public void deleteUser (String username, final Responses.StringResponse responseListener, final Response.ErrorListener errorListener) {
     Object postBody = null;
 
   

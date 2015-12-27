@@ -50,4 +50,11 @@ public class Responses {
     }
     
   
+    public static interface StringResponse {
+        public void onResponse(String response);
+    }
+
+    public static interface StringListResponse {
+        public void onResponse(List<String> stringList);
+    }
 }

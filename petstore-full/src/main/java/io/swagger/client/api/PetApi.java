@@ -50,7 +50,7 @@ public class PetApi {
    * @param body Pet object that needs to be added to the store
    * @return void
    */
-  public void updatePet (Pet body, final Response.Listener<String> responseListener, final Response.ErrorListener errorListener) {
+  public void updatePet (Pet body, final Responses.StringResponse responseListener, final Response.ErrorListener errorListener) {
     Object postBody = body;
 
   
@@ -116,7 +116,7 @@ public class PetApi {
    * @param body Pet object that needs to be added to the store
    * @return void
    */
-  public void addPet (Pet body, final Response.Listener<String> responseListener, final Response.ErrorListener errorListener) {
+  public void addPet (Pet body, final Responses.StringResponse responseListener, final Response.ErrorListener errorListener) {
     Object postBody = body;
 
   
@@ -407,7 +407,7 @@ public class PetApi {
    * @param status Updated status of the pet
    * @return void
    */
-  public void updatePetWithForm (String petId, String name, String status, final Response.Listener<String> responseListener, final Response.ErrorListener errorListener) {
+  public void updatePetWithForm (String petId, String name, String status, final Responses.StringResponse responseListener, final Response.ErrorListener errorListener) {
     Object postBody = null;
 
   
@@ -502,7 +502,7 @@ public class PetApi {
    * @param petId Pet id to delete
    * @return void
    */
-  public void deletePet (String apiKey, Long petId, final Response.Listener<String> responseListener, final Response.ErrorListener errorListener) {
+  public void deletePet (String apiKey, Long petId, final Responses.StringResponse responseListener, final Response.ErrorListener errorListener) {
     Object postBody = null;
 
   
