@@ -19,8 +19,11 @@ public class Order  {
   private Integer quantity = null;
   @SerializedName("shipDate")
   private Date shipDate = null;
+  public enum StatusEnum {
+     placed,  approved,  delivered, 
+  };
   @SerializedName("status")
-  private String status = null;
+  private StatusEnum status = null;
   @SerializedName("complete")
   private Boolean complete = null;
 
@@ -73,10 +76,10 @@ public class Order  {
    * Order Status
    **/
   @ApiModelProperty(value = "Order Status")
-  public String getStatus() {
+  public StatusEnum getStatus() {
     return status;
   }
-  public void setStatus(String status) {
+  public void setStatus(StatusEnum status) {
     this.status = status;
   }
 

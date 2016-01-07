@@ -13,6 +13,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 
 import io.swagger.client.model.Pet;
+import java.io.File;
 
 
 import org.apache.http.HttpEntity;
@@ -50,13 +51,13 @@ public class PetApi {
    * @param body Pet object that needs to be added to the store
    * @return void
    */
-  public void updatePet (Pet body, final Responses.StringResponse responseListener, final Response.ErrorListener errorListener) {
+  public void updatePet (Pet body, final Response.Listener<String> responseListener, final Response.ErrorListener errorListener) {
     Object postBody = body;
 
   
 
     // create path and map variables
-    String path = "/pets".replaceAll("\\{format\\}","json");
+    String path = "/pet".replaceAll("\\{format\\}","json");
 
     // query params
     List<Pair> queryParams = new ArrayList<Pair>();
@@ -116,13 +117,13 @@ public class PetApi {
    * @param body Pet object that needs to be added to the store
    * @return void
    */
-  public void addPet (Pet body, final Responses.StringResponse responseListener, final Response.ErrorListener errorListener) {
+  public void addPet (Pet body, final Response.Listener<String> responseListener, final Response.ErrorListener errorListener) {
     Object postBody = body;
 
   
 
     // create path and map variables
-    String path = "/pets".replaceAll("\\{format\\}","json");
+    String path = "/pet".replaceAll("\\{format\\}","json");
 
     // query params
     List<Pair> queryParams = new ArrayList<Pair>();
@@ -182,13 +183,13 @@ public class PetApi {
    * @param status Status values that need to be considered for filter
    * @return List<Pet>
    */
-  public void findPetsByStatus (List<String> status, final Responses.PetListResponse responseListener, final Response.ErrorListener errorListener) {
+  public void findPetsByStatus (List<String> status, final Response.Listener<List<Pet>> responseListener, final Response.ErrorListener errorListener) {
     Object postBody = null;
 
   
 
     // create path and map variables
-    String path = "/pets/findByStatus".replaceAll("\\{format\\}","json");
+    String path = "/pet/findByStatus".replaceAll("\\{format\\}","json");
 
     // query params
     List<Pair> queryParams = new ArrayList<Pair>();
@@ -255,13 +256,13 @@ public class PetApi {
    * @param tags Tags to filter by
    * @return List<Pet>
    */
-  public void findPetsByTags (List<String> tags, final Responses.PetListResponse responseListener, final Response.ErrorListener errorListener) {
+  public void findPetsByTags (List<String> tags, final Response.Listener<List<Pet>> responseListener, final Response.ErrorListener errorListener) {
     Object postBody = null;
 
   
 
     // create path and map variables
-    String path = "/pets/findByTags".replaceAll("\\{format\\}","json");
+    String path = "/pet/findByTags".replaceAll("\\{format\\}","json");
 
     // query params
     List<Pair> queryParams = new ArrayList<Pair>();
@@ -328,7 +329,7 @@ public class PetApi {
    * @param petId ID of pet that needs to be fetched
    * @return Pet
    */
-  public void getPetById (Long petId, final Responses.PetResponse responseListener, final Response.ErrorListener errorListener) {
+  public void getPetById (Long petId, final Response.Listener<Pet> responseListener, final Response.ErrorListener errorListener) {
     Object postBody = null;
 
   
@@ -340,7 +341,7 @@ public class PetApi {
     
 
     // create path and map variables
-    String path = "/pets/{petId}".replaceAll("\\{format\\}","json").replaceAll("\\{" + "petId" + "\\}", apiInvoker.escapeString(petId.toString()));
+    String path = "/pet/{petId}".replaceAll("\\{format\\}","json").replaceAll("\\{" + "petId" + "\\}", apiInvoker.escapeString(petId.toString()));
 
     // query params
     List<Pair> queryParams = new ArrayList<Pair>();
@@ -407,7 +408,7 @@ public class PetApi {
    * @param status Updated status of the pet
    * @return void
    */
-  public void updatePetWithForm (String petId, String name, String status, final Responses.StringResponse responseListener, final Response.ErrorListener errorListener) {
+  public void updatePetWithForm (String petId, String name, String status, final Response.Listener<String> responseListener, final Response.ErrorListener errorListener) {
     Object postBody = null;
 
   
@@ -417,21 +418,9 @@ public class PetApi {
          new ApiException(400, "Missing the required parameter 'petId' when calling updatePetWithForm"));
     }
     
-    // verify the required parameter 'name' is set
-    if (name == null) {
-       VolleyError error = new VolleyError("Missing the required parameter 'name' when calling updatePetWithForm",
-         new ApiException(400, "Missing the required parameter 'name' when calling updatePetWithForm"));
-    }
-    
-    // verify the required parameter 'status' is set
-    if (status == null) {
-       VolleyError error = new VolleyError("Missing the required parameter 'status' when calling updatePetWithForm",
-         new ApiException(400, "Missing the required parameter 'status' when calling updatePetWithForm"));
-    }
-    
 
     // create path and map variables
-    String path = "/pets/{petId}".replaceAll("\\{format\\}","json").replaceAll("\\{" + "petId" + "\\}", apiInvoker.escapeString(petId.toString()));
+    String path = "/pet/{petId}".replaceAll("\\{format\\}","json").replaceAll("\\{" + "petId" + "\\}", apiInvoker.escapeString(petId.toString()));
 
     // query params
     List<Pair> queryParams = new ArrayList<Pair>();
@@ -498,20 +487,14 @@ public class PetApi {
   /**
    * Deletes a pet
    * 
-   * @param apiKey 
    * @param petId Pet id to delete
+   * @param apiKey 
    * @return void
    */
-  public void deletePet (String apiKey, Long petId, final Responses.StringResponse responseListener, final Response.ErrorListener errorListener) {
+  public void deletePet (Long petId, String apiKey, final Response.Listener<String> responseListener, final Response.ErrorListener errorListener) {
     Object postBody = null;
 
   
-    // verify the required parameter 'apiKey' is set
-    if (apiKey == null) {
-       VolleyError error = new VolleyError("Missing the required parameter 'apiKey' when calling deletePet",
-         new ApiException(400, "Missing the required parameter 'apiKey' when calling deletePet"));
-    }
-    
     // verify the required parameter 'petId' is set
     if (petId == null) {
        VolleyError error = new VolleyError("Missing the required parameter 'petId' when calling deletePet",
@@ -520,7 +503,7 @@ public class PetApi {
     
 
     // create path and map variables
-    String path = "/pets/{petId}".replaceAll("\\{format\\}","json").replaceAll("\\{" + "petId" + "\\}", apiInvoker.escapeString(petId.toString()));
+    String path = "/pet/{petId}".replaceAll("\\{format\\}","json").replaceAll("\\{" + "petId" + "\\}", apiInvoker.escapeString(petId.toString()));
 
     // query params
     List<Pair> queryParams = new ArrayList<Pair>();
@@ -556,6 +539,90 @@ public class PetApi {
 
     try {
       apiInvoker.invokeAPI(basePath, path, "DELETE", queryParams, postBody, headerParams, formParams, contentType, authNames,
+        new Response.Listener<String>() {
+          @Override
+          public void onResponse(String response) {
+            
+              
+              responseListener.onResponse(response);
+              
+            
+          }
+      }, new Response.ErrorListener() {
+          @Override
+          public void onErrorResponse(VolleyError error) {
+            errorListener.onErrorResponse(error);
+          }
+      });
+    } catch (ApiException ex) {
+      errorListener.onErrorResponse(new VolleyError(ex));
+    }
+  }
+  
+  /**
+   * uploads an image
+   * 
+   * @param petId ID of pet to update
+   * @param additionalMetadata Additional data to pass to server
+   * @param file file to upload
+   * @return void
+   */
+  public void uploadFile (Long petId, String additionalMetadata, File file, final Response.Listener<String> responseListener, final Response.ErrorListener errorListener) {
+    Object postBody = null;
+
+  
+    // verify the required parameter 'petId' is set
+    if (petId == null) {
+       VolleyError error = new VolleyError("Missing the required parameter 'petId' when calling uploadFile",
+         new ApiException(400, "Missing the required parameter 'petId' when calling uploadFile"));
+    }
+    
+
+    // create path and map variables
+    String path = "/pet/{petId}/uploadImage".replaceAll("\\{format\\}","json").replaceAll("\\{" + "petId" + "\\}", apiInvoker.escapeString(petId.toString()));
+
+    // query params
+    List<Pair> queryParams = new ArrayList<Pair>();
+    // header params
+    Map<String, String> headerParams = new HashMap<String, String>();
+    // form params
+    Map<String, String> formParams = new HashMap<String, String>();
+
+    
+
+    
+
+    String[] contentTypes = {
+      "multipart/form-data"
+    };
+    String contentType = contentTypes.length > 0 ? contentTypes[0] : "application/json";
+
+    if (contentType.startsWith("multipart/form-data")) {
+      // file uploading
+      MultipartEntityBuilder builder = MultipartEntityBuilder.create();
+      
+      if (additionalMetadata != null) {
+        builder.addTextBody("additionalMetadata", ApiInvoker.parameterToString(additionalMetadata), ApiInvoker.TEXT_PLAIN_UTF8);
+      }
+      
+      if (file != null) {
+        builder.addBinaryBody("file", file);
+      }
+      
+
+      HttpEntity httpEntity = builder.build();
+      postBody = httpEntity;
+    } else {
+      // normal form params
+      formParams.put("additionalMetadata", ApiInvoker.parameterToString(additionalMetadata));
+      
+      
+    }
+
+      String[] authNames = new String[] { "petstore_auth" };
+
+    try {
+      apiInvoker.invokeAPI(basePath, path, "POST", queryParams, postBody, headerParams, formParams, contentType, authNames,
         new Response.Listener<String>() {
           @Override
           public void onResponse(String response) {

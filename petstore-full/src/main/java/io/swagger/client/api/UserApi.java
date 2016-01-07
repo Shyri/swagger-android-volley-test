@@ -1,21 +1,27 @@
 package io.swagger.client.api;
 
+import io.swagger.client.Responses;
+import io.swagger.client.ApiInvoker;
+import io.swagger.client.ApiException;
+import io.swagger.client.Pair;
+
+import io.swagger.client.model.*;
+
+import java.util.*;
+
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+
+import io.swagger.client.model.User;
+import java.util.*;
+
 
 import org.apache.http.HttpEntity;
 import org.apache.http.entity.mime.MultipartEntityBuilder;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-
-import io.swagger.client.ApiException;
-import io.swagger.client.ApiInvoker;
-import io.swagger.client.Pair;
-import io.swagger.client.Responses;
-import io.swagger.client.model.User;
+import java.util.HashMap;
+import java.io.File;
 
 
 public class UserApi {
@@ -45,13 +51,13 @@ public class UserApi {
    * @param body Created user object
    * @return void
    */
-  public void createUser (User body, final Responses.StringResponse responseListener, final Response.ErrorListener errorListener) {
+  public void createUser (User body, final Response.Listener<String> responseListener, final Response.ErrorListener errorListener) {
     Object postBody = body;
 
   
 
     // create path and map variables
-    String path = "/users".replaceAll("\\{format\\}","json");
+    String path = "/user".replaceAll("\\{format\\}","json");
 
     // query params
     List<Pair> queryParams = new ArrayList<Pair>();
@@ -111,13 +117,13 @@ public class UserApi {
    * @param body List of user object
    * @return void
    */
-  public void createUsersWithArrayInput (List<User> body, final Responses.StringResponse responseListener, final Response.ErrorListener errorListener) {
+  public void createUsersWithArrayInput (List<User> body, final Response.Listener<String> responseListener, final Response.ErrorListener errorListener) {
     Object postBody = body;
 
   
 
     // create path and map variables
-    String path = "/users/createWithArray".replaceAll("\\{format\\}","json");
+    String path = "/user/createWithArray".replaceAll("\\{format\\}","json");
 
     // query params
     List<Pair> queryParams = new ArrayList<Pair>();
@@ -177,13 +183,13 @@ public class UserApi {
    * @param body List of user object
    * @return void
    */
-  public void createUsersWithListInput (List<User> body, final Responses.StringResponse responseListener, final Response.ErrorListener errorListener) {
+  public void createUsersWithListInput (List<User> body, final Response.Listener<String> responseListener, final Response.ErrorListener errorListener) {
     Object postBody = body;
 
   
 
     // create path and map variables
-    String path = "/users/createWithList".replaceAll("\\{format\\}","json");
+    String path = "/user/createWithList".replaceAll("\\{format\\}","json");
 
     // query params
     List<Pair> queryParams = new ArrayList<Pair>();
@@ -244,13 +250,13 @@ public class UserApi {
    * @param password The password for login in clear text
    * @return String
    */
-  public void loginUser (String username, String password, final Responses.StringResponse responseListener, final Response.ErrorListener errorListener) {
+  public void loginUser (String username, String password, final Response.Listener<String> responseListener, final Response.ErrorListener errorListener) {
     Object postBody = null;
 
   
 
     // create path and map variables
-    String path = "/users/login".replaceAll("\\{format\\}","json");
+    String path = "/user/login".replaceAll("\\{format\\}","json");
 
     // query params
     List<Pair> queryParams = new ArrayList<Pair>();
@@ -318,13 +324,13 @@ public class UserApi {
    * 
    * @return void
    */
-  public void logoutUser (final Responses.StringResponse responseListener, final Response.ErrorListener errorListener) {
+  public void logoutUser (final Response.Listener<String> responseListener, final Response.ErrorListener errorListener) {
     Object postBody = null;
 
   
 
     // create path and map variables
-    String path = "/users/logout".replaceAll("\\{format\\}","json");
+    String path = "/user/logout".replaceAll("\\{format\\}","json");
 
     // query params
     List<Pair> queryParams = new ArrayList<Pair>();
@@ -384,7 +390,7 @@ public class UserApi {
    * @param username The name that needs to be fetched. Use user1 for testing.
    * @return User
    */
-  public void getUserByName (String username, final Responses.UserResponse responseListener, final Response.ErrorListener errorListener) {
+  public void getUserByName (String username, final Response.Listener<User> responseListener, final Response.ErrorListener errorListener) {
     Object postBody = null;
 
   
@@ -396,7 +402,7 @@ public class UserApi {
     
 
     // create path and map variables
-    String path = "/users/{username}".replaceAll("\\{format\\}","json").replaceAll("\\{" + "username" + "\\}", apiInvoker.escapeString(username.toString()));
+    String path = "/user/{username}".replaceAll("\\{format\\}","json").replaceAll("\\{" + "username" + "\\}", apiInvoker.escapeString(username.toString()));
 
     // query params
     List<Pair> queryParams = new ArrayList<Pair>();
@@ -462,7 +468,7 @@ public class UserApi {
    * @param body Updated user object
    * @return void
    */
-  public void updateUser (String username, User body, final Responses.StringResponse responseListener, final Response.ErrorListener errorListener) {
+  public void updateUser (String username, User body, final Response.Listener<String> responseListener, final Response.ErrorListener errorListener) {
     Object postBody = body;
 
   
@@ -474,7 +480,7 @@ public class UserApi {
     
 
     // create path and map variables
-    String path = "/users/{username}".replaceAll("\\{format\\}","json").replaceAll("\\{" + "username" + "\\}", apiInvoker.escapeString(username.toString()));
+    String path = "/user/{username}".replaceAll("\\{format\\}","json").replaceAll("\\{" + "username" + "\\}", apiInvoker.escapeString(username.toString()));
 
     // query params
     List<Pair> queryParams = new ArrayList<Pair>();
@@ -534,7 +540,7 @@ public class UserApi {
    * @param username The name that needs to be deleted
    * @return void
    */
-  public void deleteUser (String username, final Responses.StringResponse responseListener, final Response.ErrorListener errorListener) {
+  public void deleteUser (String username, final Response.Listener<String> responseListener, final Response.ErrorListener errorListener) {
     Object postBody = null;
 
   
@@ -546,7 +552,7 @@ public class UserApi {
     
 
     // create path and map variables
-    String path = "/users/{username}".replaceAll("\\{format\\}","json").replaceAll("\\{" + "username" + "\\}", apiInvoker.escapeString(username.toString()));
+    String path = "/user/{username}".replaceAll("\\{format\\}","json").replaceAll("\\{" + "username" + "\\}", apiInvoker.escapeString(username.toString()));
 
     // query params
     List<Pair> queryParams = new ArrayList<Pair>();

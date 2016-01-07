@@ -23,8 +23,11 @@ public class Pet  {
   private List<String> photoUrls = null;
   @SerializedName("tags")
   private List<Tag> tags = null;
+  public enum StatusEnum {
+     available,  pending,  sold, 
+  };
   @SerializedName("status")
-  private String status = null;
+  private StatusEnum status = null;
 
   
   /**
@@ -86,10 +89,10 @@ public class Pet  {
    * pet status in the store
    **/
   @ApiModelProperty(value = "pet status in the store")
-  public String getStatus() {
+  public StatusEnum getStatus() {
     return status;
   }
-  public void setStatus(String status) {
+  public void setStatus(StatusEnum status) {
     this.status = status;
   }
 

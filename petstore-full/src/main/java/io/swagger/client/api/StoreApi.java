@@ -14,7 +14,6 @@ import java.util.Map;
 import io.swagger.client.ApiException;
 import io.swagger.client.ApiInvoker;
 import io.swagger.client.Pair;
-import io.swagger.client.Responses;
 import io.swagger.client.model.Order;
 
 
@@ -40,18 +39,88 @@ public class StoreApi {
 
   
   /**
+   * Returns pet inventories by status
+   * Returns a map of status codes to quantities
+   * @return Map<String, Integer>
+   */
+  public void getInventory (final Response.Listener<Map<String, Integer>> responseListener, final Response.ErrorListener errorListener) {
+    Object postBody = null;
+
+  
+
+    // create path and map variables
+    String path = "/store/inventory".replaceAll("\\{format\\}","json");
+
+    // query params
+    List<Pair> queryParams = new ArrayList<Pair>();
+    // header params
+    Map<String, String> headerParams = new HashMap<String, String>();
+    // form params
+    Map<String, String> formParams = new HashMap<String, String>();
+
+    
+
+    
+
+    String[] contentTypes = {
+      
+    };
+    String contentType = contentTypes.length > 0 ? contentTypes[0] : "application/json";
+
+    if (contentType.startsWith("multipart/form-data")) {
+      // file uploading
+      MultipartEntityBuilder builder = MultipartEntityBuilder.create();
+      
+
+      HttpEntity httpEntity = builder.build();
+      postBody = httpEntity;
+    } else {
+      // normal form params
+      
+    }
+
+      String[] authNames = new String[] { "api_key" };
+
+    try {
+      apiInvoker.invokeAPI(basePath, path, "GET", queryParams, postBody, headerParams, formParams, contentType, authNames,
+        new Response.Listener<String>() {
+          @Override
+          public void onResponse(String response) {
+            
+            try {
+              responseListener.onResponse((Map<String, Integer>) ApiInvoker.deserialize(response,  "map", Map.class));
+              
+              
+            
+            } catch (ApiException exception) {
+               errorListener.onErrorResponse(new VolleyError(exception));
+            }
+            
+          }
+      }, new Response.ErrorListener() {
+          @Override
+          public void onErrorResponse(VolleyError error) {
+            errorListener.onErrorResponse(error);
+          }
+      });
+    } catch (ApiException ex) {
+      errorListener.onErrorResponse(new VolleyError(ex));
+    }
+  }
+  
+  /**
    * Place an order for a pet
    * 
    * @param body order placed for purchasing the pet
    * @return Order
    */
-  public void placeOrder (Order body, final Responses.OrderResponse responseListener, final Response.ErrorListener errorListener) {
+  public void placeOrder (Order body, final Response.Listener<Order> responseListener, final Response.ErrorListener errorListener) {
     Object postBody = body;
 
   
 
     // create path and map variables
-    String path = "/stores/order".replaceAll("\\{format\\}","json");
+    String path = "/store/order".replaceAll("\\{format\\}","json");
 
     // query params
     List<Pair> queryParams = new ArrayList<Pair>();
@@ -116,7 +185,7 @@ public class StoreApi {
    * @param orderId ID of pet that needs to be fetched
    * @return Order
    */
-  public void getOrderById (String orderId, final Responses.OrderResponse responseListener, final Response.ErrorListener errorListener) {
+  public void getOrderById (String orderId, final Response.Listener<Order> responseListener, final Response.ErrorListener errorListener) {
     Object postBody = null;
 
   
@@ -128,7 +197,7 @@ public class StoreApi {
     
 
     // create path and map variables
-    String path = "/stores/order/{orderId}".replaceAll("\\{format\\}","json").replaceAll("\\{" + "orderId" + "\\}", apiInvoker.escapeString(orderId.toString()));
+    String path = "/store/order/{orderId}".replaceAll("\\{format\\}","json").replaceAll("\\{" + "orderId" + "\\}", apiInvoker.escapeString(orderId.toString()));
 
     // query params
     List<Pair> queryParams = new ArrayList<Pair>();
@@ -193,7 +262,7 @@ public class StoreApi {
    * @param orderId ID of the order that needs to be deleted
    * @return void
    */
-  public void deleteOrder (String orderId, final Responses.StringResponse responseListener, final Response.ErrorListener errorListener) {
+  public void deleteOrder (String orderId, final Response.Listener<String> responseListener, final Response.ErrorListener errorListener) {
     Object postBody = null;
 
   
@@ -205,7 +274,7 @@ public class StoreApi {
     
 
     // create path and map variables
-    String path = "/stores/order/{orderId}".replaceAll("\\{format\\}","json").replaceAll("\\{" + "orderId" + "\\}", apiInvoker.escapeString(orderId.toString()));
+    String path = "/store/order/{orderId}".replaceAll("\\{format\\}","json").replaceAll("\\{" + "orderId" + "\\}", apiInvoker.escapeString(orderId.toString()));
 
     // query params
     List<Pair> queryParams = new ArrayList<Pair>();
