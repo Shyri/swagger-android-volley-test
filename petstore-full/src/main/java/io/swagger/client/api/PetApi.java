@@ -1,28 +1,21 @@
 package io.swagger.client.api;
 
-import io.swagger.client.Responses;
-import io.swagger.client.ApiInvoker;
-import io.swagger.client.ApiException;
-import io.swagger.client.Pair;
-
-import io.swagger.client.model.*;
-
-import java.util.*;
-
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-
-import io.swagger.client.model.Pet;
-import java.io.File;
-
 
 import org.apache.http.HttpEntity;
 import org.apache.http.entity.mime.MultipartEntityBuilder;
 
-import java.util.Map;
-import java.util.HashMap;
 import java.io.File;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
+import io.swagger.client.ApiException;
+import io.swagger.client.ApiInvoker;
+import io.swagger.client.Pair;
+import io.swagger.client.model.Pet;
 
 public class PetApi {
   String basePath = "http://petstore.swagger.io/v2";
@@ -153,7 +146,7 @@ public class PetApi {
       
     }
 
-      String[] authNames = new String[] { "petstore_auth" };
+      String[] authNames = new String[] { };
 
     try {
       apiInvoker.invokeAPI(basePath, path, "POST", queryParams, postBody, headerParams, formParams, contentType, authNames,

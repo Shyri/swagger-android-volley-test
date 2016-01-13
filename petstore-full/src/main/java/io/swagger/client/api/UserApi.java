@@ -1,6 +1,5 @@
 package io.swagger.client.api;
 
-import io.swagger.client.Responses;
 import io.swagger.client.ApiInvoker;
 import io.swagger.client.ApiException;
 import io.swagger.client.Pair;
