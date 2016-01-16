@@ -49,7 +49,6 @@ public class PetApiTest {
             @Override
             public void onResponse(String response) {
                 waiter.resume();
-                waiter.assertTrue(true);
             }
         }, new Response.ErrorListener() {
             @Override
@@ -82,6 +81,36 @@ public class PetApiTest {
         });
 
         waiter.await();
+    }
+
+    @Test
+    public void testUpdatePet() throws Exception {
+        final Waiter waiter = new Waiter();
+
+        Pet pet = createRandomPet();
+        pet.setName("programmer");
+
+        api.updatePet(pet, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                waiter.resume();
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                error.printStackTrace();
+                waiter.assertTrue(false);
+                waiter.resume();
+            }
+        });
+
+        waiter.await();
+//
+//        Pet fetched = api.getPetById(pet.getId());
+//        assertNotNull(fetched);
+//        assertEquals(pet.getId(), fetched.getId());
+//        assertNotNull(fetched.getCategory());
+//        assertEquals(fetched.getCategory().getName(), pet.getCategory().getName());
     }
 
     private Pet createRandomPet() {
