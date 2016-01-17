@@ -8,7 +8,7 @@ import com.google.gson.annotations.SerializedName;
 
 
 @ApiModel(description = "")
-public class Pet  {
+public class NewPet  {
   
   @SerializedName("id")
   private Long id = null;
@@ -20,7 +20,7 @@ public class Pet  {
   
   /**
    **/
-  @ApiModelProperty(required = true, value = "")
+  @ApiModelProperty(value = "")
   public Long getId() {
     return id;
   }
@@ -55,7 +55,7 @@ public class Pet  {
   @Override
   public String toString()  {
     StringBuilder sb = new StringBuilder();
-    sb.append("class Pet {\n");
+    sb.append("class NewPet {\n");
     
     sb.append("  id: ").append(id).append("\n");
     sb.append("  name: ").append(name).append("\n");
