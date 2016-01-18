@@ -1,20 +1,7 @@
 package io.swagger.client.api;
 
-import io.swagger.client.ApiInvoker;
-import io.swagger.client.ApiException;
-import io.swagger.client.Pair;
-
-import io.swagger.client.model.*;
-
-import java.util.*;
-
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-
-import io.swagger.client.model.Pet;
-import io.swagger.client.model.ErrorModel;
-import io.swagger.client.model.NewPet;
-
 
 import org.apache.http.HttpEntity;
 import org.apache.http.entity.mime.MultipartEntityBuilder;
@@ -25,6 +12,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeoutException;
+
+import io.swagger.client.ApiException;
+import io.swagger.client.ApiInvoker;
+import io.swagger.client.Pair;
+import io.swagger.client.model.NewPet;
+import io.swagger.client.model.Pet;
 
 
 public class DefaultApi {
@@ -249,7 +242,10 @@ public class DefaultApi {
       } catch (InterruptedException ex) {
          throw ex;
       } catch (ExecutionException ex) {
-         throw ex;
+          if(ex.getCause() instanceof VolleyError) {
+              throw new ApiException(((VolleyError) ex.getCause()).networkResponse.statusCode, ((VolleyError) ex.getCause()).getMessage());
+          }
+          throw ex;
       } catch (TimeoutException ex) {
          throw ex;
       }

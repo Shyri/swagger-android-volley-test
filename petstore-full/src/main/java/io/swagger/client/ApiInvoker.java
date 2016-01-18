@@ -188,6 +188,11 @@ public class ApiInvoker {
      // Setup authentications (key: authentication name, value: authentication).
      INSTANCE.authentications = new HashMap<String, Authentication>();
      
+     
+     INSTANCE.authentications.put("api_key", new ApiKeyAuth("header", "api_key"));
+     
+     
+     
      // Prevent the authentications from being modified.
      INSTANCE.authentications = Collections.unmodifiableMap(INSTANCE.authentications);
   }
@@ -418,6 +423,8 @@ public class ApiInvoker {
           } else {
              request = new PostRequest(url, headers, contentType, new StringEntity(serialize(body), "UTF-8"), stringRequest, errorListener);
           }
+       } else {
+         request = new PostRequest(url, headers, null, null, stringRequest, errorListener);
        }
     }
     else if ("PUT".equals(method)) {
@@ -430,6 +437,8 @@ public class ApiInvoker {
           } else {
              request = new PutRequest(url, headers, contentType, new StringEntity(serialize(body), "UTF-8"), stringRequest, errorListener);
           }
+       } else {
+          request = new PutRequest(url, headers, null, null, stringRequest, errorListener);
        }
     }
     else if ("DELETE".equals(method)) {
@@ -442,6 +451,8 @@ public class ApiInvoker {
           } else {
              request = new DeleteRequest(url, headers, contentType, new StringEntity(serialize(body), "UTF-8"), stringRequest, errorListener);
           }
+       } else {
+          request = new DeleteRequest(url, headers, null, null, stringRequest, errorListener);
        }
     }
     else if ("PATCH".equals(method)) {
@@ -454,7 +465,9 @@ public class ApiInvoker {
              } else {
                 request = new PatchRequest(url, headers, contentType, new StringEntity(serialize(body), "UTF-8"), stringRequest, errorListener);
              }
-             }
+          } else {
+             request = new PatchRequest(url, headers, null, null, stringRequest, errorListener);
+          }
        }
     return request;
   }
