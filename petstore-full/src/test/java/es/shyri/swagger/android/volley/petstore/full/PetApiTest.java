@@ -46,7 +46,6 @@ public class PetApiTest {
         HttpStack stack = new HurlStack();
         Network network = new BasicNetwork(stack);
         ApiInvoker.initializeInstance(new NoCache(), network, 4, new ExecutorDelivery(Executors.newSingleThreadExecutor()));
-//        ApiInvoker.getInstance().setApiKey("special-key");
         api = new PetApi();
     }
 
