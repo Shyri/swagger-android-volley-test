@@ -32,14 +32,15 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
-import io.swagger.client.auth.Authentication;
 import io.swagger.client.auth.ApiKeyAuth;
+import io.swagger.client.auth.Authentication;
 import io.swagger.client.auth.HttpBasicAuth;
+import io.swagger.client.auth.OAuth;
+import io.swagger.client.request.DeleteRequest;
 import io.swagger.client.request.GetRequest;
+import io.swagger.client.request.PatchRequest;
 import io.swagger.client.request.PostRequest;
 import io.swagger.client.request.PutRequest;
-import io.swagger.client.request.DeleteRequest;
-import io.swagger.client.request.PatchRequest;
 
 public class ApiInvoker {
   private static ApiInvoker INSTANCE;
@@ -48,6 +49,8 @@ public class ApiInvoker {
   private RequestQueue mRequestQueue;
 
   private Map<String, Authentication> authentications;
+
+  private int connectionTimeout;
 
   /** Content type "text/plain" with UTF-8 encoding. */
   public static final ContentType TEXT_PLAIN_UTF8 = ContentType.create("text/plain", Consts.UTF_8);
@@ -174,15 +177,15 @@ public class ApiInvoker {
   }
 
   public static void initializeInstance() {
-     initializeInstance(null, null, 0, null);
+     initializeInstance(null);
   }
 
   public static void initializeInstance(Cache cache) {
-     initializeInstance(cache, null, 0, null);
+     initializeInstance(cache, null, 0, null, 30);
   }
 
-  public static void initializeInstance(Cache cache, Network network, int threadPoolSize, ResponseDelivery delivery) {
-     INSTANCE = new ApiInvoker(cache, network, threadPoolSize, delivery);
+  public static void initializeInstance(Cache cache, Network network, int threadPoolSize, ResponseDelivery delivery, int connectionTimeout) {
+     INSTANCE = new ApiInvoker(cache, network, threadPoolSize, delivery, connectionTimeout);
      setUserAgent("Android-Volley-Swagger");
 
      // Setup authentications (key: authentication name, value: authentication).
@@ -193,11 +196,18 @@ public class ApiInvoker {
      
      
      
+     
+     
+     
+     
+     INSTANCE.authentications.put("petstore_auth", new OAuth());
+     
+     
      // Prevent the authentications from being modified.
      INSTANCE.authentications = Collections.unmodifiableMap(INSTANCE.authentications);
   }
 
-  private ApiInvoker(Cache cache, Network network, int threadPoolSize, ResponseDelivery delivery) {
+  private ApiInvoker(Cache cache, Network network, int threadPoolSize, ResponseDelivery delivery, int connectionTimeout) {
      if(cache == null) cache = new NoCache();
      if(network == null) {
         HttpStack stack = new HurlStack();
@@ -209,6 +219,7 @@ public class ApiInvoker {
      } else {
         initConnectionRequest(cache, network, threadPoolSize, delivery);
      }
+     this.connectionTimeout = connectionTimeout;
   }
 
   public static ApiInvoker getInstance() {
@@ -324,6 +335,14 @@ public class ApiInvoker {
     throw new RuntimeException("No API key authentication configured!");
   }
 
+  public void setConnectionTimeout(int connectionTimeout){
+     this.connectionTimeout = connectionTimeout;
+  }
+
+  public int getConnectionTimeout() {
+     return connectionTimeout;
+  }
+
   /**
   * Update query and header parameters based on authentication settings.
   *
@@ -342,7 +361,7 @@ public class ApiInvoker {
      Request request = createRequest(host, path, method, queryParams, body, headerParams, formParams, contentType, authNames, future, future);
      if(request != null) {
         mRequestQueue.add(request);
-        return future.get(30, TimeUnit.SECONDS);
+        return future.get(connectionTimeout, TimeUnit.SECONDS);
      } else return "no data";
   }
 

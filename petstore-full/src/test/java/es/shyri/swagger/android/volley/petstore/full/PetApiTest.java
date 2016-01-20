@@ -34,9 +34,7 @@ import static junit.framework.Assert.assertTrue;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
-/**
- * Created by Shyri on 11/01/2016.
- */
+
 @RunWith(RobolectricTestRunner.class)
 public class PetApiTest {
     PetApi api = null;
@@ -45,7 +43,7 @@ public class PetApiTest {
     public void setup() {
         HttpStack stack = new HurlStack();
         Network network = new BasicNetwork(stack);
-        ApiInvoker.initializeInstance(new NoCache(), network, 4, new ExecutorDelivery(Executors.newSingleThreadExecutor()));
+        ApiInvoker.initializeInstance(new NoCache(), network, 4, new ExecutorDelivery(Executors.newSingleThreadExecutor()), 30);
         api = new PetApi();
     }
 
