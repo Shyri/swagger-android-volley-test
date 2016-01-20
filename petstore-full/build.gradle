@@ -18,9 +18,6 @@ buildscript {
 allprojects {
     repositories {
         jcenter()
-        maven {
-            url "https://oss.sonatype.org/content/repositories/snapshots"
-        }
     }
 }
 
@@ -77,18 +74,7 @@ dependencies {
     compile "com.mcxiaoke.volley:library:${volley_version}@aar"
     testCompile "junit:junit:$junit_version"
     testCompile "net.jodah:concurrentunit:${concurrentunitVersion}"
-    testCompile "org.mockito:mockito-core:${mockitoVersion}"
-    "org.hamcrest:hamcrest-core:${hamcresttVersion}"
-    "org.hamcrest:hamcrest-library:${hamcresttVersion}"
-    "org.hamcrest:hamcrest-integration:${hamcresttVersion}"
-    testCompile ('org.powermock:powermock-api-mockito:1.6.2') {
-        exclude module: 'hamcrest-core'
-        exclude module: 'objenesis'
-    }
-    testCompile ('org.powermock:powermock-module-junit4:1.6.2') {
-        exclude module: 'hamcrest-core'
-        exclude module: 'objenesis'
-    }
+
     testCompile "org.robolectric:robolectric:3.0"
 }
 
